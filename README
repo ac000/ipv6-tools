@@ -1,0 +1,16 @@
+Overview
+========
+
+Some simple tools for working with IPv6 addresses.
+
+ipv6-range	- Given a network address and prefix, calculate the range
+		  of available IPs. e.g
+
+    $ ./ipv6-range 2001:db8:abcd:1234::/64
+    Network : 2001:db8:abcd:1234::/64
+    Start   : 2001:0db8:abcd:1234:0000:0000:0000:0000
+    End     : 2001:0db8:abcd:1234:ffff:ffff:ffff:ffff
+
+
+These tools are licensed under the GNU General Public License Version 2 or
+the GNU Lesser General Public License Version 2.1

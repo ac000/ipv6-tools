@@ -10,6 +10,14 @@ ipv6-arpa	- Given an IPv6 address, display it in ip6.arpa format. e.g
     ip6.arpa :-
       f.0.0.f.0.0.0.0.0.0.0.0.0.0.0.0.4.3.2.1.d.c.b.a.8.b.d.0.1.0.0.2.ip6.arpa.
 
+ipv6-isin	- Given an IPv6 network/prefix and an IPv6 address, determine
+		  if the address falls within the given network. e.g
+
+    $ ./ipv6-isin 2001:db8:abcd:1234::/64 2001:db8:abcd:1234::cafe
+    Yes
+    $ ./ipv6-isin 2001:db8:abcd:1234::/64 2001:db8:abde:1234::cafe
+    No
+
 ipv6-range	- Given a network address and prefix, calculate the range
 		  of available IPs. e.g
 

@@ -5,26 +5,26 @@ Some simple tools for working with IPv6 addresses.
 
 ipv6-arpa	- Given an IPv6 address, display it in ip6.arpa format. e.g
 
-    $ ./ipv6-arpa 2001:db8:abcd:1234::f00f
-    Address  : 2001:0db8:abcd:1234:0000:0000:0000:f00f
+    $ ./ipv6-arpa 2001:db8:1:2::f00f
+    Address  : 2001:0db8:0001:0002:0000:0000:0000:f00f
     ip6.arpa :-
-      f.0.0.f.0.0.0.0.0.0.0.0.0.0.0.0.4.3.2.1.d.c.b.a.8.b.d.0.1.0.0.2.ip6.arpa.
+      f.0.0.f.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.0.1.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa.
 
 ipv6-isin	- Given an IPv6 network/prefix and an IPv6 address, determine
 		  if the address falls within the given network. e.g
 
-    $ ./ipv6-isin 2001:db8:abcd:1234::/64 2001:db8:abcd:1234::cafe
+    $ ./ipv6-isin 2001:db8:1:2::/64 2001:db8:1:2::cafe
     Yes
-    $ ./ipv6-isin 2001:db8:abcd:1234::/64 2001:db8:abde:1234::cafe
+    $ ./ipv6-isin 2001:db8:1:2::/64 2001:db8:1:20::cafe
     No
 
 ipv6-range	- Given a network address and prefix, calculate the range
 		  of available IPs. e.g
 
-    $ ./ipv6-range 2001:db8:abcd:1234::/64
-    Network : 2001:db8:abcd:1234::/64
-    Start   : 2001:0db8:abcd:1234:0000:0000:0000:0000
-    End     : 2001:0db8:abcd:1234:ffff:ffff:ffff:ffff
+    $ ./ipv6-range 2001:db8:1:2::/64
+    Network : 2001:db8:1:2::/64
+    Start   : 2001:0db8:0001:0002:0000:0000:0000:0000
+    End     : 2001:0db8:0001:0002:ffff:ffff:ffff:ffff
 
 
 These tools are licensed under the GNU General Public License Version 2 or

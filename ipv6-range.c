@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <arpa/inet.h>
 
@@ -27,6 +28,8 @@ static void ipv6_range(const char *network, unsigned short prefixlen)
 	struct in6_addr ip6sb;
 	int i;
 	int imask = 128 - prefixlen;
+	uint64_t networks = UINT64_MAX;
+	char net_s[45] = "\0";
 
 	inet_pton(AF_INET6, network, &ip6b);
 
@@ -39,7 +42,15 @@ static void ipv6_range(const char *network, unsigned short prefixlen)
 		imask -= j;
 	}
 
-	printf("Network : %s/%u\n", network, prefixlen);
+	/*
+	 * For a prefix length of < 64, calculate the number of /64 networks
+	 * the given network provides. E.g a /48 provides 65536 /64's
+	 */
+	if (prefixlen < 64)
+		snprintf(net_s, sizeof(net_s), "(%zu /64 networks)",
+				(networks >> prefixlen) + 1);
+
+	printf("Network : %s/%u %s\n", network, prefixlen, net_s);
 	printf("Start   : ");
 	for (i = 0; i < 15; i += 2) {
 		printf("%02x%02x", ip6sb.s6_addr[i], ip6sb.s6_addr[i + 1]);

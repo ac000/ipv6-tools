@@ -2,7 +2,7 @@
  * ipv6-range.c - Given an IPv6 network address with prefix, calculate the
  * 		  range of IPs available.
  *
- *  Copyright (C) 2015	Andrew Clayton <andrew@digital-domain.net>
+ *  Copyright (C) 2015 - 2016	Andrew Clayton <andrew@digital-domain.net>
  *
  *  Licensed under the GNU General Public License Version 2 or
  *  the GNU Lesser General Public License Version 2.1
@@ -29,7 +29,7 @@ static void ipv6_range(const char *network, unsigned short prefixlen)
 	int i;
 	int imask = 128 - prefixlen;
 	uint64_t networks = UINT64_MAX;
-	char net_s[45] = "\0";
+	char net_s[60] = "\0";
 
 	inet_pton(AF_INET6, network, &ip6b);
 
@@ -47,7 +47,8 @@ static void ipv6_range(const char *network, unsigned short prefixlen)
 	 * the given network provides. E.g a /48 provides 65536 /64's
 	 */
 	if (prefixlen < 64)
-		snprintf(net_s, sizeof(net_s), "(%zu /64 networks)",
+		snprintf(net_s, sizeof(net_s), "(%u /56 networks, "
+				"%zu /64 networks)", 1 << (56 - prefixlen),
 				(networks >> prefixlen) + 1);
 
 	printf("Network : %s/%u %s\n", network, prefixlen, net_s);

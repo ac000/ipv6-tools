@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 	unsigned short prefixlen;
 	char *ptr;
 
-	if (argc < 2) {
+	if (argc < 2 || !strstr(argv[1], "::/")) {
 		printf("Usage: ipv6-range network/prefix\n");
 		exit(EXIT_FAILURE);
 	}

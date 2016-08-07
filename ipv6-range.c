@@ -43,12 +43,18 @@ static void ipv6_range(const char *network, unsigned short prefixlen)
 	}
 
 	/*
-	 * For a prefix length of < 64, calculate the number of /64 networks
-	 * the given network provides. E.g a /48 provides 65536 /64's
+	 * For a prefix length of < 56, calculate the number of /56 and
+	 * /64 networks the given network provides. E.g a /48 provides
+	 * 256 /56 and 65536 /64 networks.
+	 *
+	 * For a prefix length of < 64, just display the nubmer of /64s.
 	 */
-	if (prefixlen < 64)
+	if (prefixlen < 56)
 		snprintf(net_s, sizeof(net_s), "(%u /56 networks, "
 				"%zu /64 networks)", 1 << (56 - prefixlen),
+				(networks >> prefixlen) + 1);
+	else if (prefixlen < 64)
+		snprintf(net_s, sizeof(net_s), "(%zu /64 networks)",
 				(networks >> prefixlen) + 1);
 
 	printf("Network : %s/%u %s\n", network, prefixlen, net_s);

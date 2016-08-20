@@ -90,5 +90,7 @@ int main(int argc, char *argv[])
 	*ptr = '\0';
 	ipv6_range(argv[1], prefixlen);
 
+	printf("\nA /64 provides 18,446,744,073,709,551,616 addresses\n");
+
 	exit(EXIT_SUCCESS);
 }

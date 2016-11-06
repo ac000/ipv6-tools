@@ -26,6 +26,16 @@ ipv6-range	- Given a network address and prefix, calculate the range
     Start   : 2001:0db8:0001:0002:0000:0000:0000:0000
     End     : 2001:0db8:0001:0002:ffff:ffff:ffff:ffff
 
+gen-ula		- Generates an IPv6 ULA prefix based on the algorithm in
+		  RFC 4193. e.g
+
+    $ ./gen-ula
+    fd0c:d0e3:46f0::/48
+    /64 subnet range:
+        fd0c:d0e3:46f0:0000::/64 -
+        fd0c:d0e3:46f0:ffff::/64
+
+The gen-ula tool requires libuuid and mhash.
 
 These tools are licensed under the GNU General Public License Version 2 or
 the GNU Lesser General Public License Version 2.1

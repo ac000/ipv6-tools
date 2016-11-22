@@ -37,5 +37,11 @@ gen-ula		- Generates an IPv6 ULA prefix based on the algorithm in
 
 The gen-ula tool requires libuuid and mhash.
 
+mac-to-eui64	- Generates a modified EUI-64 identifier for the given MAC
+		  address.
+
+    $ ./mac-to-eui64 00:21:2f:b5:6e:10
+    02:21:2f:ff:fe:b5:6e:10
+
 These tools are licensed under the GNU General Public License Version 2 or
 the GNU Lesser General Public License Version 2.1

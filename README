@@ -43,13 +43,16 @@ mac-to-eui64	- Generates a modified EUI-64 identifier for the given MAC
     $ ./mac-to-eui64 00:21:2f:b5:6e:10
     02:21:2f:ff:fe:b5:6e:10
 
-mac-type	- Test the U/L (Universal/Local) bit of a MAC address.
+mac-type	- Test the U/L (Universal/Local) and IG (Individual/Group) bits
+		  of a MAC address.
 
     $ ./mac-type 00:21:2f:b5:6e:10
-    U/L bit is NOT set. Address is universally administered.
+    U/L (LG) bit is NOT set. Address is universally administered.
+    IG bit is NOT set. Unicast address.
 
-    $ ./mac-type de:ad:be:ef:ca:fe
-    U/L bit is set. Address is locally administered.
+    $ ./mac-type df:ad:be:ef:ca:fe
+    U/L (LG) bit is set. Address is locally administered.
+    IG bit is set. Broadcast address.
 
 These tools are licensed under the GNU General Public License Version 2 or
 the GNU Lesser General Public License Version 2.1

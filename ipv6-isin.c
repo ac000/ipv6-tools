@@ -10,8 +10,6 @@
  *  See GPLv2 & LGPLv2.1 in the source tree.
  */
 
-#define _DEFAULT_SOURCE
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

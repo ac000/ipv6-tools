@@ -17,7 +17,8 @@ ifneq "$(GLIBC_VER_OK)" "1"
 	LIBS := -lrt
 endif
 
-all: ipv6-range ipv6-arpa ipv6-isin gen-ula mac-to-eui64 mac-type
+all: ipv6-range ipv6-arpa ipv6-isin gen-ula mac-to-eui64 mac-type \
+	ipv6-extract-mac
 
 ipv6-range: ipv6-range.c
 	$(CC) $(CFLAGS) -o ipv6-range ipv6-range.c
@@ -37,5 +38,9 @@ mac-to-eui64: mac-to-eui64.c
 mac-type: mac-type.c
 	$(CC) $(CFLAGS) -o mac-type mac-type.c
 
+ipv6-extract-mac: ipv6-extract-mac.c
+	$(CC) $(CFLAGS) -o ipv6-extract-mac ipv6-extract-mac.c
+
 clean:
-	rm -f ipv6-range ipv6-arpa ipv6-isin gen-ula mac-to-eui64 mac-type
+	rm -f ipv6-range ipv6-arpa ipv6-isin gen-ula mac-to-eui64 mac-type \
+	ipv6-extract-mac

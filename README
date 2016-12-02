@@ -54,5 +54,12 @@ mac-type	- Test the U/L (Universal/Local) and IG (Individual/Group) bits
     U/L (LG) bit is set. Address is locally administered.
     IG bit is set. Broadcast address.
 
+ipv6-extract-mac	- Given an IPv6 address such as one generated through
+			  SLAAC. This will attempt to extract the MAC address
+			  from it.
+
+    ./ipv6-extract-mac 2001:db8::200:5eff:fe00:5300
+    00:00:5e:00:53:00
+
 These tools are licensed under the GNU General Public License Version 2 or
 the GNU Lesser General Public License Version 2.1

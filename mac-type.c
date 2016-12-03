@@ -11,17 +11,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 int main(int argc, char *argv[])
 {
-	long mac;
+	uint8_t mac;
 
 	if (argc < 2) {
 		fprintf(stderr, "Usage: mac-type <MAC address>\n");
 		exit(EXIT_FAILURE);
 	}
 
-	mac = strtol(argv[1], NULL, 16);
+	mac = strtoul(argv[1], NULL, 16);
 
 	/*
 	 * Test for the U/L (LG) bit which is the second-least-significant

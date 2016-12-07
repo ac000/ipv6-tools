@@ -2,7 +2,7 @@
  * ipv6-isin.c - Given an IPv6 network/prefix and an IPv6 address, determine
  * 		 if the address falls within the given network.
  *
- *  Copyright (C) 2015	Andrew Clayton <andrew@digital-domain.net>
+ *  Copyright (C) 2015 - 2016	Andrew Clayton <andrew@digital-domain.net>
  *
  *  Licensed under the GNU General Public License Version 2 or
  *  the GNU Lesser General Public License Version 2.1
@@ -12,41 +12,44 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <arpa/inet.h>
 
 /*
- * Function based on the tcp wrappers IPv6 code from
- * Casper Dik (Casper.Dik@Holland.Sun.COM)
+ * Based on code from nginx.
  */
-static void ipv6_isin(const char *network, unsigned short prefixlen,
-		      const char *address)
+static void ipv6_isin(const char *network, uint8_t prefixlen, const char *addr)
 {
-	unsigned char ip6b[sizeof(struct in6_addr)];
-	unsigned char *p = ip6b;
-	char ip6s[INET6_ADDRSTRLEN];
+	int i;
+	unsigned char netb[sizeof(struct in6_addr)];
+	unsigned char maskb[sizeof(struct in6_addr)];
+	unsigned char addrb[sizeof(struct in6_addr)];
 
-	inet_pton(AF_INET6, address, ip6b);
+	inet_pton(AF_INET6, network, netb);
+	inet_pton(AF_INET6, addr, addrb);
 
-	p += prefixlen / 8;
-	prefixlen %= 8;
+	/* Create a mask based on prefixlen */
+	for (i = 0; i < 16; i++) {
+		uint8_t s = (prefixlen > 8) ? 8 : prefixlen;
 
-	if (prefixlen !=  0)
-		*p &= 0xff << (8 - prefixlen);
+		prefixlen -= s;
+		maskb[i] = (0xffu << (8 - s));
+	}
 
-	while (p < ip6b + sizeof(ip6b))
-		*p++ = 0;
+	for (i = 0; i < 16; i++) {
+		if ((addrb[i] & maskb[i]) != netb[i]) {
+			printf("No\n");
+			return;
+		}
+	}
 
-	inet_ntop(AF_INET6, ip6b, ip6s, INET6_ADDRSTRLEN);
-	if (strcmp(network, ip6s) == 0)
-		printf("Yes\n");
-	else
-		printf("No\n");
+	printf("Yes\n");
 }
 
 int main(int argc, char *argv[])
 {
-	unsigned short prefixlen;
+	uint8_t prefixlen;
 	char *ptr;
 
 	if (argc < 3) {

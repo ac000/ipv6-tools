@@ -7,4 +7,5 @@ ipv6-isin
 ipv6-range
 mac-to-eui64
 mac-type
+mask-to-prefix
 prefix-to-mask

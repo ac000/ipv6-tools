@@ -68,5 +68,10 @@ prefix-to-mask		- Given an IPv6 prefix length, display the compressed
     comp    ffc0::
     uncomp  ffc0:0000:0000:0000:0000:0000:0000:0000
 
+mask-to-prefix		- Given an IPv6 network mask display the prefix length.
+
+    $ ./mask-to-prefix ffc0::
+    prefixlen : 10
+
 These tools are licensed under the GNU General Public License Version 2 or
 the GNU Lesser General Public License Version 2.1

@@ -18,7 +18,7 @@ ifneq "$(GLIBC_VER_OK)" "1"
 endif
 
 all: ipv6-range ipv6-arpa ipv6-isin gen-ula mac-to-eui64 mac-type \
-	ipv6-extract-mac
+	ipv6-extract-mac prefix-to-mask
 
 ipv6-range: ipv6-range.c
 	$(CC) $(CFLAGS) -o ipv6-range ipv6-range.c
@@ -41,6 +41,9 @@ mac-type: mac-type.c
 ipv6-extract-mac: ipv6-extract-mac.c
 	$(CC) $(CFLAGS) -o ipv6-extract-mac ipv6-extract-mac.c
 
+prefix-to-mask: prefix-to-mask.c
+	$(CC) $(CFLAGS) -o prefix-to-mask prefix-to-mask.c
+
 clean:
 	rm -f ipv6-range ipv6-arpa ipv6-isin gen-ula mac-to-eui64 mac-type \
-	ipv6-extract-mac
+	ipv6-extract-mac prefix-to-mask

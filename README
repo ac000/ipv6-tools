@@ -61,5 +61,12 @@ ipv6-extract-mac	- Given an IPv6 address such as one generated through
     ./ipv6-extract-mac 2001:db8::200:5eff:fe00:5300
     00:00:5e:00:53:00
 
+prefix-to-mask		- Given an IPv6 prefix length, display the compressed
+			  and uncompressed network mask representations.
+
+    $ ./prefix-to-mask 10
+    comp    ffc0::
+    uncomp  ffc0:0000:0000:0000:0000:0000:0000:0000
+
 These tools are licensed under the GNU General Public License Version 2 or
 the GNU Lesser General Public License Version 2.1

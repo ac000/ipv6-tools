@@ -48,8 +48,8 @@ static void ipv6_range(const char *network, unsigned short prefixlen)
 	 * For a prefix length of < 64, just display the number of /64s.
 	 */
 	if (prefixlen < 56)
-		snprintf(net_s, sizeof(net_s), "(%zu /56 networks, "
-				"%zu /64 networks)", 1L << (56 - prefixlen),
+		snprintf(net_s, sizeof(net_s), "(%llu /56 networks, "
+				"%zu /64 networks)", 1LLU << (56 - prefixlen),
 				(networks >> prefixlen) + 1);
 	else if (prefixlen < 64)
 		snprintf(net_s, sizeof(net_s), "(%zu /64 networks)",

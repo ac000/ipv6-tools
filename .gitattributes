@@ -1,2 +1,6 @@
 *.c	diff=cpp
 *.h	diff=cpp
+
+GPLv2		linguist-documentation
+LGPLv2.1	linguist-documentation
+README		linguist-documentation

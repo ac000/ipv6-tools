@@ -73,5 +73,13 @@ mask-to-prefix		- Given an IPv6 network mask display the prefix length.
     $ ./mask-to-prefix ffc0::
     prefixlen : 10
 
+ipv6-fmt		- Given an IPv6 address format it in compressed,
+			  expanded and URI literal forms.
+
+    $ ./ipv6-fmt 2001:0db8:0000::dead:0000:beef
+    Compressed  : 2001:db8::dead:0:beef
+    Expanded    : 2001:0db8:0000:0000:0000:dead:0000:beef
+    URI Literal : [2001:db8::dead:0:beef]
+
 These tools are licensed under the GNU General Public License Version 2 or
 the GNU Lesser General Public License Version 2.1

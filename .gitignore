@@ -3,6 +3,7 @@
 gen-ula
 ipv6-arpa
 ipv6-extract-mac
+ipv6-fmt
 ipv6-isin
 ipv6-range
 mac-to-eui64

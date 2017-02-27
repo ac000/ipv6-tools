@@ -41,7 +41,9 @@ mac-to-eui64	- Generates a modified EUI-64 identifier for the given MAC
 		  address.
 
     $ ./mac-to-eui64 00:21:2f:b5:6e:10
-    02:21:2f:ff:fe:b5:6e:10
+    Modified EUI-64 :-
+		 02:21:2f:ff:fe:b5:6e:10
+    (SLAAC Host) ::0221:2fff:feb5:6e10
 
 mac-type	- Test the U/L (Universal/Local) and IG (Individual/Group) bits
 		  of a MAC address.

@@ -16,22 +16,23 @@
 
 int main(int argc, char *argv[])
 {
+	char macstr[20];
 	uint8_t mac[8];
 	int i;
 
-	if (argc < 2) {
-		fprintf(stderr, "Usage: mac-to-eui64 <MAC address>\n");
-		exit(EXIT_FAILURE);
-	}
+	if (argc < 2)
+		scanf("%19s", macstr);
+	else
+		snprintf(macstr, sizeof(macstr), "%s", argv[1]);
 
-	mac[0] = strtoul(argv[1], NULL, 16);
-	mac[1] = strtoul(argv[1]+3, NULL, 16);
-	mac[2] = strtoul(argv[1]+6, NULL, 16);
+	mac[0] = strtoul(macstr, NULL, 16);
+	mac[1] = strtoul(macstr+3, NULL, 16);
+	mac[2] = strtoul(macstr+6, NULL, 16);
 	mac[3] = 0xff;
 	mac[4] = 0xfe;
-	mac[5] = strtoul(argv[1]+9, NULL, 16);
-	mac[6] = strtoul(argv[1]+12, NULL, 16);
-	mac[7] = strtoul(argv[1]+15, NULL, 16);
+	mac[5] = strtoul(macstr+9, NULL, 16);
+	mac[6] = strtoul(macstr+12, NULL, 16);
+	mac[7] = strtoul(macstr+15, NULL, 16);
 
 	/* Toggle the (U/L) bit 0000 00*0 */
 	mac[0] ^= 1 << 1;

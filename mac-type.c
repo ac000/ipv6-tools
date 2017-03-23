@@ -1,7 +1,7 @@
 /*
  * mac-type.c	- Check the U/L (LG) & IG bits in a MAC address.
  *
- * Copyright (C) 2016		Andrew Clayton <andrew@digital-domain.net>
+ * Copyright (C) 2016 - 2017	Andrew Clayton <andrew@digital-domain.net>
  *
  * Licensed under the GNU General Public License Version 2 or
  * the GNU Lesser General Public License Version 2.1
@@ -15,15 +15,15 @@
 
 int main(int argc, char *argv[])
 {
+	char macstr[20];
 	uint8_t mac;
 
-	if (argc < 2) {
-		fprintf(stderr, "Usage: mac-type <MAC address>\n");
-		exit(EXIT_FAILURE);
-	}
+	if (argc < 2)
+		scanf("%19s", macstr);
+	else
+		snprintf(macstr, sizeof(macstr), "%s", argv[1]);
 
-	mac = strtoul(argv[1], NULL, 16);
-
+	mac = strtoul(macstr, NULL, 16);
 	/*
 	 * Test for the U/L (LG) bit which is the second-least-significant
 	 * bit of the first byte of the address.

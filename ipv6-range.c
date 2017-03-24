@@ -2,7 +2,7 @@
  * ipv6-range.c - Given an IPv6 network address with prefix, calculate the
  * 		  range of IPs available.
  *
- *  Copyright (C) 2015 - 2016	Andrew Clayton <andrew@digital-domain.net>
+ *  Copyright (C) 2015 - 2017	Andrew Clayton <andrew@digital-domain.net>
  *
  *  Licensed under the GNU General Public License Version 2 or
  *  the GNU Lesser General Public License Version 2.1
@@ -12,21 +12,23 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
+#include <stdint.h>		/* UINT64_MAX */
 #include <string.h>
 #include <arpa/inet.h>
+
+#include "short_types.h"
 
 /*
  * Based on code from https://github.com/peczenyj/IPv6SubnetCalc/
  */
-static void ipv6_range(const char *network, unsigned short prefixlen)
+static void ipv6_range(const char *network, u8 prefixlen)
 {
 	struct in6_addr ip6b;
 	struct in6_addr ip6eb;
 	struct in6_addr ip6sb;
 	int i;
 	int imask = 128 - prefixlen;
-	uint64_t networks = UINT64_MAX;
+	u64 networks = UINT64_MAX;
 	char net_s[60] = "\0";
 
 	inet_pton(AF_INET6, network, &ip6b);
@@ -75,7 +77,7 @@ static void ipv6_range(const char *network, unsigned short prefixlen)
 
 int main(int argc, char *argv[])
 {
-	unsigned short prefixlen;
+	u8 prefixlen;
 	char *ptr;
 
 	if (argc < 2 || !strstr(argv[1], "::/")) {

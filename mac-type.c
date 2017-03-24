@@ -11,12 +11,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
+
+#include "short_types.h"
 
 int main(int argc, char *argv[])
 {
 	char macstr[20];
-	uint8_t mac;
+	u8 mac;
 
 	if (argc < 2)
 		scanf("%19s", macstr);

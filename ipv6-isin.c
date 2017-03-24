@@ -2,7 +2,7 @@
  * ipv6-isin.c - Given an IPv6 network/prefix and an IPv6 address, determine
  * 		 if the address falls within the given network.
  *
- *  Copyright (C) 2015 - 2016	Andrew Clayton <andrew@digital-domain.net>
+ *  Copyright (C) 2015 - 2017	Andrew Clayton <andrew@digital-domain.net>
  *
  *  Licensed under the GNU General Public License Version 2 or
  *  the GNU Lesser General Public License Version 2.1
@@ -12,14 +12,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <string.h>
 #include <arpa/inet.h>
+
+#include "short_types.h"
 
 /*
  * Based on code from nginx.
  */
-static void ipv6_isin(const char *network, uint8_t prefixlen, const char *addr)
+static void ipv6_isin(const char *network, u8 prefixlen, const char *addr)
 {
 	int i;
 	unsigned char netb[sizeof(struct in6_addr)];
@@ -31,7 +32,7 @@ static void ipv6_isin(const char *network, uint8_t prefixlen, const char *addr)
 
 	/* Create a mask based on prefixlen */
 	for (i = 0; i < 16; i++) {
-		uint8_t s = (prefixlen > 8) ? 8 : prefixlen;
+		u8 s = (prefixlen > 8) ? 8 : prefixlen;
 
 		prefixlen -= s;
 		maskb[i] = (0xffu << (8 - s));
@@ -49,7 +50,7 @@ static void ipv6_isin(const char *network, uint8_t prefixlen, const char *addr)
 
 int main(int argc, char *argv[])
 {
-	uint8_t prefixlen;
+	u8 prefixlen;
 	char *ptr;
 
 	if (argc < 3) {

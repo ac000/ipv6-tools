@@ -1,7 +1,7 @@
 /*
  * mask-to-prefix.c - Given an IPv6 network mask display the prefix length.
  *
- *  Copyright (C) 2016	Andrew Clayton <andrew@digital-domain.net>
+ *  Copyright (C) 2016 - 2017	Andrew Clayton <andrew@digital-domain.net>
  *
  *  Licensed under the GNU General Public License Version 2 or
  *  the GNU Lesser General Public License Version 2.1
@@ -11,8 +11,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <arpa/inet.h>
+
+#include "short_types.h"
 
 /*
  * Based on code from http://www.keil.com/support/docs/194.htm
@@ -22,7 +23,7 @@
 static void mask_to_prefix(const char *mask)
 {
 	int i;
-	uint8_t prefixlen = 0;
+	u8 prefixlen = 0;
 	struct in6_addr maskb;
 
 	inet_pton(AF_INET6, mask, maskb.s6_addr);

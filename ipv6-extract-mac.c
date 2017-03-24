@@ -2,7 +2,7 @@
  * ipv6-extract-mac.c	- Extract the MAC address from an IPv6 address,
  * 			  e.g SLAAC
  *
- * Copyright (C) 2016		Andrew Clayton <andrew@digital-domain.net>
+ * Copyright (C) 2016 - 2017	Andrew Clayton <andrew@digital-domain.net>
  *
  * Licensed under the GNU General Public License Version 2 or
  * the GNU Lesser General Public License Version 2.1
@@ -12,13 +12,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <string.h>
+
+#include "short_types.h"
 
 int main(int argc, char *argv[])
 {
-	uint8_t mac[6];
-	uint16_t val;
+	u8 mac[6];
+	u16 val;
 	int i;
 	char *ptr;
 	char *tmp;

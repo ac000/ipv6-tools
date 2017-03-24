@@ -11,13 +11,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <arpa/inet.h>
+
+#include "short_types.h"
 
 static void fmt_ipv6(const char *addr)
 {
 	int i;
-	uint8_t addrn[sizeof(struct in6_addr)];
+	u8 addrn[sizeof(struct in6_addr)];
 	char addrp[INET6_ADDRSTRLEN];
 
 	inet_pton(AF_INET6, addr, addrn);

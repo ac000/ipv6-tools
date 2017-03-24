@@ -1,7 +1,7 @@
 /*
  * prefix-to-mask.c - Given an IPv6 prefix length display the network mask.
  *
- *  Copyright (C) 2016	Andrew Clayton <andrew@digital-domain.net>
+ *  Copyright (C) 2016 - 2017	Andrew Clayton <andrew@digital-domain.net>
  *
  *  Licensed under the GNU General Public License Version 2 or
  *  the GNU Lesser General Public License Version 2.1
@@ -11,13 +11,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <arpa/inet.h>
+
+#include "short_types.h"
 
 /*
  * Based on code from nginx.
  */
-static void prefix_to_mask(uint8_t prefixlen)
+static void prefix_to_mask(u8 prefixlen)
 {
 	int i;
 	struct in6_addr maskb;
@@ -25,7 +26,7 @@ static void prefix_to_mask(uint8_t prefixlen)
 
 	/* Create a mask based on prefixlen */
 	for (i = 0; i < 16; i++) {
-		uint8_t s = (prefixlen > 8) ? 8 : prefixlen;
+		u8 s = (prefixlen > 8) ? 8 : prefixlen;
 
 		prefixlen -= s;
 		maskb.s6_addr[i] = (0xffu << (8 - s));

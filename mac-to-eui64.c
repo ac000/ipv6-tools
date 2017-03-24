@@ -12,12 +12,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
+
+#include "short_types.h"
 
 int main(int argc, char *argv[])
 {
 	char macstr[20];
-	uint8_t mac[8];
+	u8 mac[8];
 	int i;
 
 	if (argc < 2)

@@ -26,6 +26,8 @@ ipv6-range	- Given a network address and prefix, calculate the range
     Start   : 2001:0db8:0001:0002:0000:0000:0000:0000
     End     : 2001:0db8:0001:0002:ffff:ffff:ffff:ffff
 
+    A /64 provides 18,446,744,073,709,551,616 addresses
+
 gen-ula		- Generates an IPv6 ULA prefix based on the algorithm in
 		  RFC 4193. e.g
 

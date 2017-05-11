@@ -1,7 +1,7 @@
 SHELL		= /bin/sh
 
 CC		= gcc
-CFLAGS		= -Wall -std=c99 -g -O2
+CFLAGS		= -Wall -Wextra -std=c99 -g -O2
 LIBS		=
 
 GLIBC_MAJOR	:= $(shell ldd --version | grep -Eo '[0-9]+\.[0-9]+' | \

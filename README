@@ -98,5 +98,11 @@ ipv6-fmt		- Given an IPv6 address format it in compressed,
     Expanded    : 2001:0db8:0000:0000:0000:dead:0000:beef
     URI Literal : [2001:db8::dead:0:beef]
 
+ipv6-gen-slaac		- Given an IPv6 network & MAC address, generate the
+			  corresponding SLAAC address.
+
+    $ ./ipv6-gen-slaac 2001:db8:a:b:: 00:24:1d:ba:80:00
+    SLAAC : 2001:db8:a:b:224:1dff:feba:8000
+
 These tools are licensed under the GNU General Public License Version 2 or
 the GNU Lesser General Public License Version 2.1

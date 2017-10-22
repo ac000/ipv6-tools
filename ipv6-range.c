@@ -18,6 +18,12 @@
 
 #include "short_types.h"
 
+#define TXT_FMT_BOLD	"\033[1m"
+#define TXT_FMT_END	"\033[0m"
+
+#define HIGH_NIBBLE(byte) (((byte) >> 4) & 0x0f)
+#define LOW_NIBBLE(byte)  ((byte) & 0x0f)
+
 /*
  * Based on code from https://github.com/peczenyj/IPv6SubnetCalc/
  */
@@ -30,6 +36,7 @@ static void ipv6_range(const char *network, u8 prefixlen)
 	int imask = 128 - prefixlen;
 	u64 networks = UINT64_MAX;
 	char net_s[60] = "\0";
+	char *txtfmt = "";
 
 	inet_pton(AF_INET6, network, &ip6b);
 
@@ -60,19 +67,43 @@ static void ipv6_range(const char *network, u8 prefixlen)
 	printf("Network : %s/%u %s\n", network, prefixlen, net_s);
 	printf("Start   : ");
 	for (i = 0; i < 15; i += 2) {
-		printf("%02x%02x", ip6sb.s6_addr[i], ip6sb.s6_addr[i + 1]);
+		if ((i*8) + 4 > prefixlen)
+			txtfmt = TXT_FMT_BOLD;
+		printf("%s%x", txtfmt, HIGH_NIBBLE(ip6sb.s6_addr[i]));
+		if ((i*8) + 8 > prefixlen)
+			txtfmt = TXT_FMT_BOLD;
+		printf("%s%x", txtfmt, LOW_NIBBLE(ip6sb.s6_addr[i]));
+		if (((i+1) * 8) + 4 > prefixlen)
+			txtfmt = TXT_FMT_BOLD;
+		printf("%s%x", txtfmt, HIGH_NIBBLE(ip6sb.s6_addr[i + 1]));
+		if (((i+1) * 8) + 8 > prefixlen)
+			txtfmt = TXT_FMT_BOLD;
+		printf("%s%x", txtfmt, LOW_NIBBLE(ip6sb.s6_addr[i + 1]));
+
 		if (i < 14)
 			printf(":");
 	}
-	printf("\n");
+	printf(TXT_FMT_END"\n");
+	txtfmt = "";
 
 	printf("End     : ");
 	for (i = 0; i < 15; i += 2) {
-		printf("%02x%02x", ip6eb.s6_addr[i], ip6eb.s6_addr[i + 1]);
+		if ((i*8) + 4 > prefixlen)
+			txtfmt = TXT_FMT_BOLD;
+		printf("%s%x", txtfmt, HIGH_NIBBLE(ip6eb.s6_addr[i]));
+		if ((i*8) + 8 > prefixlen)
+			txtfmt = TXT_FMT_BOLD;
+		printf("%s%x", txtfmt, LOW_NIBBLE(ip6eb.s6_addr[i]));
+		if (((i+1) * 8) + 4 > prefixlen)
+			txtfmt = TXT_FMT_BOLD;
+		printf("%s%x", txtfmt, HIGH_NIBBLE(ip6eb.s6_addr[i + 1]));
+		if (((i+1) * 8) + 8 > prefixlen)
+			txtfmt = TXT_FMT_BOLD;
+		printf("%s%x", txtfmt, LOW_NIBBLE(ip6eb.s6_addr[i + 1]));
 		if (i < 14)
 			printf(":");
 	}
-	printf("\n");
+	printf(TXT_FMT_END"\n");
 }
 
 int main(int argc, char *argv[])

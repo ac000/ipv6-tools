@@ -43,10 +43,10 @@ int main(int argc, char *argv[])
 		printf("%02x%s", mac[i], (i < 7) ? ":" : "");
 	printf("\n(SLAAC Host)    : ::");
 	for (i = 0; i < 8; i += 2)
-		printf("%02x%02x%s", mac[i], mac[i + 1], i+1 < 7 ? ":" : "");
+		printf("%x%x%s", mac[i], mac[i + 1], i+1 < 7 ? ":" : "");
 	printf("\n(link-local)    : fe80::");
 	for (i = 0; i < 8; i += 2)
-		printf("%02x%02x%s", mac[i], mac[i + 1], i+1 < 7 ? ":" : "");
+		printf("%x%x%s", mac[i], mac[i + 1], i+1 < 7 ? ":" : "");
 	printf("\n");
 
 	exit(EXIT_SUCCESS);

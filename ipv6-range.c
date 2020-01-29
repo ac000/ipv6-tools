@@ -2,7 +2,8 @@
  * ipv6-range.c - Given an IPv6 network address with prefix, calculate the
  * 		  range of IPs available.
  *
- *  Copyright (C) 2015 - 2017	Andrew Clayton <andrew@digital-domain.net>
+ *  Copyright (C) 2015 - 2017, 2020	Andrew Clayton
+ *					<andrew@digital-domain.net>
  *
  *  Licensed under the GNU General Public License Version 2 or
  *  the GNU Lesser General Public License Version 2.1
@@ -33,9 +34,9 @@ static void ipv6_range(const char *network, u8 prefixlen)
 	struct in6_addr ip6eb;
 	struct in6_addr ip6sb;
 	int i;
+	int len = 0;
 	int imask = 128 - prefixlen;
-	u64 networks = UINT64_MAX;
-	char net_s[60] = "\0";
+	char net_s[128] = "\0";
 	char *txtfmt = "";
 
 	inet_pton(AF_INET6, network, &ip6b);
@@ -50,21 +51,33 @@ static void ipv6_range(const char *network, u8 prefixlen)
 	}
 
 	/*
-	 * For a prefix length of < 56, calculate the number of /56 and
-	 * /64 networks the given network provides. E.g a /48 provides
-	 * 256 /56 and 65536 /64 networks.
+	 * For a prefix length of < 64, calculate where appropriate the
+	 * number of /48, /56, /60 and /64 networks the given network
+	 * provides. E.g a /48 provides
 	 *
-	 * For a prefix length of < 64, just display the number of /64s.
+	 *    256 /56s, 4096 /60s and 65536 /64s
 	 */
+	if (prefixlen < 48)
+		len += snprintf(net_s, sizeof(net_s), "%llu /48s, ",
+				1LLU << (48 - prefixlen));
 	if (prefixlen < 56)
-		snprintf(net_s, sizeof(net_s), "(%llu /56 networks, "
-				"%zu /64 networks)", 1LLU << (56 - prefixlen),
-				(networks >> prefixlen) + 1);
+		len += snprintf(net_s + len, sizeof(net_s) - len,
+				"%llu /56s, ",
+				1LLU << (56 - prefixlen));
+	if (prefixlen < 60)
+		len += snprintf(net_s + len, sizeof(net_s) - len,
+				"%llu /60s, ",
+				1LLU << (60 - prefixlen));
+	if (prefixlen == 0)
+		len += snprintf(net_s + len, sizeof(net_s) - len,
+				"18446744073709551616 /64s");
 	else if (prefixlen < 64)
-		snprintf(net_s, sizeof(net_s), "(%zu /64 networks)",
-				(networks >> prefixlen) + 1);
+		len += snprintf(net_s + len, sizeof(net_s) - len, "%zu /64s, ",
+				((u64)UINT64_MAX >> prefixlen) + 1);
+	net_s[len - 2] = '\0';
 
-	printf("Network : %s/%u %s\n", network, prefixlen, net_s);
+	printf("Network : %s/%u\n\t  (%s)\n", network, prefixlen,
+	       net_s);
 	printf("Start   : ");
 	for (i = 0; i < 15; i += 2) {
 		if ((i*8) + 4 > prefixlen)

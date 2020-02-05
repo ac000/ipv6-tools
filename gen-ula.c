@@ -46,7 +46,7 @@ int main(void)
 	len = 2;
 	/* Use lower 40 bits (5 bytes) */
 	for (i = 19; i > 14; i--) {
-		if (i % 2 == 0) {
+		if (!(i & 1)) {
 			strcat(ula, ":");
 			len++;
 		}

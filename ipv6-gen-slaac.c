@@ -2,7 +2,7 @@
  * ipv6-gen-slaac.c	- Given an IPv6 network & MAC address create the
  *			  corresponding SLAAC address.
  *
- * Copyright (C) 2017	Andrew Clayton <andrew@digital-domain.net>
+ * Copyright (C) 2017, 2021	Andrew Clayton <andrew@digital-domain.net>
  *
  * Licensed under the GNU General Public License Version 2 or
  * the GNU Lesser General Public License Version 2.1
@@ -19,22 +19,31 @@
 
 int main(int argc, char *argv[])
 {
-	int i;
-	int len;
+	int i = 0;
 	u8 mac[8];
 	u8 slaacn[sizeof(struct in6_addr)];
 	char slaac[INET6_ADDRSTRLEN];
+	char *ptr;
 
 	if (argc < 2) {
 		fprintf(stderr, "Usage: ipv6-gen-slaac <IPv6 network> <MAC address>\n");
 		exit(EXIT_FAILURE);
 	}
 
-	len = snprintf(slaac, sizeof(slaac), "%s", argv[1]);
-	if (slaac[len-1] == ':' && slaac[len-2] == ':')
-		slaac[len-1] = '\0';
-	else if (slaac[len-1] != ':')
-		snprintf(slaac + len, sizeof(slaac), ":");
+	snprintf(slaac, sizeof(slaac), "%s", argv[1]);
+	/* Handle networks specified with a prefixlen e.g 2001:db8::/32 */
+	ptr = strchr(slaac, '/');
+	if (ptr)
+		*ptr = '\0';
+
+	ptr = slaac;
+	while ((ptr = strchr(ptr, ':'))) {
+		ptr++;
+		i++;
+	}
+	/* Handle networks like 2001:db8:a:b:: */
+	if (i > 4)
+		slaac[strlen(slaac)-1] = '\0';
 
 	mac[0] = strtoul(argv[2], NULL, 16);
 	mac[1] = strtoul(argv[2]+3, NULL, 16);

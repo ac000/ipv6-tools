@@ -19,16 +19,24 @@ ifneq "$(GLIBC_VER_OK)" "1"
 	LIBS := -lrt
 endif
 
-sources = $(wildcard *.c)
+srctmp  = $(wildcard *.c)
+sources = $(filter-out common.c,$(srctmp))
+elfs    = $(patsubst %.c,%,$(sources))
 
 .ONESHELL:
 
 .PHONY: all
-all: $(patsubst %.c,%,$(sources))
+all: common.o $(elfs)
+
+common.o: common.c common.h
+	@echo -e "  CC\t$@"
+	$(CC) $(CFLAGS) -c $<
+
 %: %.c
 	@echo -e "  CCLNK\t$@"
-	@if [[ "$@" == "gen-ula" ]]; then libs="-luuid -lmhash"; fi
-	$(CC) $(CFLAGS) -o $@ $$libs $<
+	@if [[ "$@" == "gen-ula" ]]; then LIBS="$(LIBS_FOR_GEN_ULA)"; else LIBS=; fi
+	@if [[ "$@" == "ipv6-gen-slaac" ]] || [[ "$@" == "mac-to-eui64" ]]; then OBJS="common.o"; else OBJS=; fi
+	$(CC) $(CFLAGS) -o $@ $$OBJS $$LIBS $<
 
 clean:
-	rm -f $(patsubst %.c,%,$(sources))
+	rm -f $(elfs) *.o

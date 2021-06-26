@@ -16,6 +16,7 @@
 #include <arpa/inet.h>
 
 #include "short_types.h"
+#include "common.h"
 
 int main(int argc, char *argv[])
 {
@@ -45,17 +46,7 @@ int main(int argc, char *argv[])
 	if (i > 4)
 		slaac[strlen(slaac)-1] = '\0';
 
-	mac[0] = strtoul(argv[2], NULL, 16);
-	mac[1] = strtoul(argv[2]+3, NULL, 16);
-	mac[2] = strtoul(argv[2]+6, NULL, 16);
-	mac[3] = 0xff;
-	mac[4] = 0xfe;
-	mac[5] = strtoul(argv[2]+9, NULL, 16);
-	mac[6] = strtoul(argv[2]+12, NULL, 16);
-	mac[7] = strtoul(argv[2]+15, NULL, 16);
-
-	/* Toggle the (U/L) bit 0000 00*0 */
-	mac[0] ^= 1 << 1;
+	mac_to_eui64(argv[2], mac);
 
 	for (i = 0; i < 8; i += 2)
 		snprintf(slaac + strlen(slaac), sizeof(slaac), "%02x%02x%s",

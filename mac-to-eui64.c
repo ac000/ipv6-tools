@@ -15,6 +15,7 @@
 #include <stdlib.h>
 
 #include "short_types.h"
+#include "common.h"
 
 int main(int argc, char *argv[])
 {
@@ -27,17 +28,7 @@ int main(int argc, char *argv[])
 	else
 		snprintf(macstr, sizeof(macstr), "%s", argv[1]);
 
-	mac[0] = strtoul(macstr, NULL, 16);
-	mac[1] = strtoul(macstr+3, NULL, 16);
-	mac[2] = strtoul(macstr+6, NULL, 16);
-	mac[3] = 0xff;
-	mac[4] = 0xfe;
-	mac[5] = strtoul(macstr+9, NULL, 16);
-	mac[6] = strtoul(macstr+12, NULL, 16);
-	mac[7] = strtoul(macstr+15, NULL, 16);
-
-	/* Toggle the (U/L) bit 0000 00*0 */
-	mac[0] ^= 1 << 1;
+	mac_to_eui64(macstr, mac);
 
 	printf("Modified EUI-64 : ");
 	for (i = 0; i < 8; i++)

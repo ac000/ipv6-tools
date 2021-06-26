@@ -1,5 +1,7 @@
 *.swp
 
+*.o
+
 gen-ula
 ipv6-arpa
 ipv6-extract-mac

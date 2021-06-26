@@ -9,6 +9,11 @@
  * See GPLv2 & LGPLv2.1 in the source tree.
  */
 
+#ifndef _COMMON_H_
+#define _COMMON_H_
+
 #include "short_types.h"
 
 extern void mac_to_eui64(const char *mac, u8 *buf);
+
+#endif /* _COMMON_H_ */

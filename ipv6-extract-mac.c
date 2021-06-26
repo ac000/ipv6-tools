@@ -73,8 +73,6 @@ int main(int argc, char *argv[])
 	mac[4] = val >> 8;
 	mac[5] = val & 0xff;
 
-	if (mac[0] & 0x02 || mac[0] & 0x01)
-		printf("WARNING: This address may NOT be based off a MAC address.\n");
 	for (i = 0; i < 6; i++)
 		printf("%02x%s", mac[i], (i < 5) ? ":" : "");
 	printf("\n");

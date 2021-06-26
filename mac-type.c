@@ -19,10 +19,12 @@ int main(int argc, char *argv[])
 	char macstr[20];
 	u8 mac;
 
-	if (argc < 2)
+	if (argc < 2) {
 		scanf("%19s", macstr);
-	else
+		printf("%s\n\n", macstr);
+	} else {
 		snprintf(macstr, sizeof(macstr), "%s", argv[1]);
+	}
 
 	mac = strtoul(macstr, NULL, 16);
 	/*

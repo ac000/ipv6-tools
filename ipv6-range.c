@@ -2,7 +2,7 @@
  * ipv6-range.c - Given an IPv6 network address with prefix, calculate the
  * 		  range of IPs available.
  *
- *  Copyright (C) 2015 - 2017, 2020 - 2021	Andrew Clayton
+ *  Copyright (C) 2015 - 2017, 2020 - 2023	Andrew Clayton
  *						<andrew@digital-domain.net>
  *
  *  Licensed under the GNU General Public License Version 2 or
@@ -17,10 +17,8 @@
 #include <string.h>
 #include <arpa/inet.h>
 
+#include "common.h"
 #include "short_types.h"
-
-#define TXT_FMT_BOLD	"\033[1m"
-#define TXT_FMT_END	"\033[0m"
 
 #define HIGH_NIBBLE(byte) (((byte) >> 4) & 0x0f)
 #define LOW_NIBBLE(byte)  ((byte) & 0x0f)

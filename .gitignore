@@ -3,6 +3,7 @@
 *.o
 
 gen-ula
+ipv4mapped-ipv6
 ipv6-arpa
 ipv6-extract-mac
 ipv6-fmt

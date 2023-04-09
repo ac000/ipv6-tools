@@ -104,5 +104,12 @@ ipv6-gen-slaac		- Given an IPv6 network & MAC address, generate the
     $ ./ipv6-gen-slaac 2001:db8:a:b:: 00:24:1d:ba:80:00
     SLAAC : 2001:db8:a:b:224:1dff:feba:8000
 
+ipv4mapped-ipv6		- Given an IPv4 address produce an IPv4-mapped IPv6
+			  address.
+
+    $ ./ipv4mapped-ipv6 192.168.1.254
+    IPv4-mapped IPv6 : ::ffff:192.168.1.254
+                     : ::ffff:c0a8:01fe
+
 These tools are licensed under the GNU General Public License Version 2 or
 the GNU Lesser General Public License Version 2.1

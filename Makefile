@@ -34,8 +34,8 @@ common.o: common.c common.h
 
 %: %.c
 	@echo "  CCLNK  $@"
-	@if [[ "$@" == "gen-ula" ]]; then LIBS="$(LIBS_FOR_GEN_ULA)"; else LIBS=; fi
-	@if [[ "$@" == "ipv6-gen-slaac" ]] || [[ "$@" == "mac-to-eui64" ]]; then OBJS="common.o"; else OBJS=; fi
+	@if [ "$@" == "gen-ula" ]; then LIBS="$(LIBS_FOR_GEN_ULA)"; else LIBS=; fi
+	@if [ "$@" == "ipv6-gen-slaac" ] || [ "$@" == "mac-to-eui64" ]; then OBJS="common.o"; else OBJS=; fi
 	$(CC) $(CFLAGS) -o $@ $$OBJS $$LIBS $<
 
 clean:

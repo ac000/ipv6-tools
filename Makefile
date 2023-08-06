@@ -29,11 +29,11 @@ elfs    = $(patsubst %.c,%,$(sources))
 all: common.o $(elfs)
 
 common.o: common.c common.h
-	@echo -e "  CC\t$@"
+	@echo "  CC     $@"
 	$(CC) $(CFLAGS) -c $<
 
 %: %.c
-	@echo -e "  CCLNK\t$@"
+	@echo "  CCLNK  $@"
 	@if [[ "$@" == "gen-ula" ]]; then LIBS="$(LIBS_FOR_GEN_ULA)"; else LIBS=; fi
 	@if [[ "$@" == "ipv6-gen-slaac" ]] || [[ "$@" == "mac-to-eui64" ]]; then OBJS="common.o"; else OBJS=; fi
 	$(CC) $(CFLAGS) -o $@ $$OBJS $$LIBS $<

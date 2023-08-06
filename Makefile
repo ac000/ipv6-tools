@@ -23,20 +23,33 @@ srctmp  = $(wildcard *.c)
 sources = $(filter-out common.c,$(srctmp))
 elfs    = $(patsubst %.c,%,$(sources))
 
-.ONESHELL:
+v = @
+ifeq ($V,1)
+        v =
+endif
 
 .PHONY: all
 all: common.o $(elfs)
 
 common.o: common.c common.h
 	@echo "  CC     $@"
-	$(CC) $(CFLAGS) -c $<
+	$(v)$(CC) $(CFLAGS) -c $<
+
+gen-ula: gen-ula.c
+	@echo "  CCLNK  $@"
+	$(v)$(CC) $(CFLAGS) -o $@ $< -luuid -lmhash
+
+ipv6-gen-slaac: ipv6-gen-slaac.c common.o
+	@echo "  CCLNK  $@"
+	$(v)$(CC) $(CFLAGS) -o $@ $< common.o
+
+mac-to-eui64: mac-to-eui64.c common.o
+	@echo "  CCLNK  $@"
+	$(v)$(CC) $(CFLAGS) -o $@ $< common.o
 
 %: %.c
 	@echo "  CCLNK  $@"
-	@if [ "$@" == "gen-ula" ]; then LIBS="$(LIBS_FOR_GEN_ULA)"; else LIBS=; fi
-	@if [ "$@" == "ipv6-gen-slaac" ] || [ "$@" == "mac-to-eui64" ]; then OBJS="common.o"; else OBJS=; fi
-	$(CC) $(CFLAGS) -o $@ $$OBJS $$LIBS $<
+	$(v)$(CC) $(CFLAGS) -o $@ $<
 
 clean:
 	rm -f $(elfs) *.o

@@ -52,6 +52,9 @@ static void print_nr_nets(u8 prefixlen)
 	int len = 0;
 	char net_s[128] = "\0";
 
+	if (prefixlen >= 64)
+		return;
+
 	/*
 	 * For a prefix length of < 64, calculate where appropriate the
 	 * number of /48, /56, /60 and /64 networks the given network

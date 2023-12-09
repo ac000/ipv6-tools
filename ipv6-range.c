@@ -47,29 +47,10 @@ static void pretty_print_address(const struct in6_addr *in6, u8 prefixlen)
 	printf(TXT_FMT_END"\n");
 }
 
-/*
- * Based on code from https://github.com/peczenyj/IPv6SubnetCalc/
- */
-static void ipv6_range(const char *network, u8 prefixlen)
+static void print_nr_nets(u8 prefixlen)
 {
-	struct in6_addr ip6b;
-	struct in6_addr ip6eb;
-	struct in6_addr ip6sb;
-	int i;
 	int len = 0;
-	int imask = 128 - prefixlen;
 	char net_s[128] = "\0";
-
-	inet_pton(AF_INET6, network, &ip6b);
-
-	for (i = 15; i >= 0; i--) {
-		int j = (imask > 8) ? 8 : imask;
-		unsigned char x = (1 << j) - 1;
-
-		ip6sb.s6_addr[i] = ip6b.s6_addr[i] & ~x;
-		ip6eb.s6_addr[i] = ip6b.s6_addr[i] | x;
-		imask -= j;
-	}
 
 	/*
 	 * For a prefix length of < 64, calculate where appropriate the
@@ -95,9 +76,36 @@ static void ipv6_range(const char *network, u8 prefixlen)
 	else if (prefixlen < 64)
 		len += snprintf(net_s + len, sizeof(net_s) - len, "%zu /64s, ",
 				((u64)UINT64_MAX >> prefixlen) + 1);
+
 	net_s[len - 2] = '\0';
 
-	printf("Network : %s/%u\n\t  (%s)\n", network, prefixlen, net_s);
+	printf("\t  (%s)\n", net_s);
+}
+
+/*
+ * Based on code from https://github.com/peczenyj/IPv6SubnetCalc/
+ */
+static void ipv6_range(const char *network, u8 prefixlen)
+{
+	struct in6_addr ip6b;
+	struct in6_addr ip6eb;
+	struct in6_addr ip6sb;
+	int i;
+	int imask = 128 - prefixlen;
+
+	inet_pton(AF_INET6, network, &ip6b);
+
+	for (i = 15; i >= 0; i--) {
+		int j = (imask > 8) ? 8 : imask;
+		unsigned char x = (1 << j) - 1;
+
+		ip6sb.s6_addr[i] = ip6b.s6_addr[i] & ~x;
+		ip6eb.s6_addr[i] = ip6b.s6_addr[i] | x;
+		imask -= j;
+	}
+
+	printf("Network : %s/%u\n", network, prefixlen);
+	print_nr_nets(prefixlen);
 	printf("Start   : ");
 	pretty_print_address(&ip6sb, prefixlen);
 	printf("End     : ");

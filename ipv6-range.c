@@ -75,7 +75,7 @@ static void print_nr_nets(u8 prefixlen)
 				1LLU << (60 - prefixlen));
 	if (prefixlen == 0)
 		len += snprintf(net_s + len, sizeof(net_s) - len,
-				"18446744073709551616 /64s");
+				"18446744073709551616 /64s, ");
 	else if (prefixlen < 64)
 		len += snprintf(net_s + len, sizeof(net_s) - len, "%zu /64s, ",
 				((u64)UINT64_MAX >> prefixlen) + 1);

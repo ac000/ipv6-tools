@@ -23,9 +23,9 @@
 static void ipv6_isin(const char *network, u8 prefixlen, const char *addr)
 {
 	int i;
-	unsigned char netb[sizeof(struct in6_addr)];
-	unsigned char maskb[sizeof(struct in6_addr)];
-	unsigned char addrb[sizeof(struct in6_addr)];
+	u8 netb[sizeof(struct in6_addr)];
+	u8 maskb[sizeof(struct in6_addr)];
+	u8 addrb[sizeof(struct in6_addr)];
 
 	inet_pton(AF_INET6, network, netb);
 	inet_pton(AF_INET6, addr, addrb);

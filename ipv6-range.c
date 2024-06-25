@@ -100,7 +100,7 @@ static void ipv6_range(const char *network, u8 prefixlen)
 
 	for (i = 15; i >= 0; i--) {
 		int j = (imask > 8) ? 8 : imask;
-		unsigned char x = (1 << j) - 1;
+		u8 x = (1 << j) - 1;
 
 		ip6sb.s6_addr[i] = ip6b.s6_addr[i] & ~x;
 		ip6eb.s6_addr[i] = ip6b.s6_addr[i] | x;

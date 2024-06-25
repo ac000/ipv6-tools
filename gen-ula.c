@@ -20,6 +20,8 @@
 
 #include <mhash.h>
 
+#include "short_types.h"
+
 int main(void)
 {
 	struct timespec tp;
@@ -27,7 +29,7 @@ int main(void)
 	char uuid_s[37];
 	char key[128];
 	char ula[15] = "fd";		/* fdxx:xxxx:xxxx + \0 */
-	unsigned char *xhash;
+	u8 *xhash;
 	MHASH td;
 	int len;
 	int i;

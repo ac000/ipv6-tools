@@ -25,7 +25,7 @@ static void ipv6_arpa(const char *address)
 
 	for (i = 0; i < 15; i += 2) {
 		len += sprintf(ips + len,"%02x%02x", ip6b.s6_addr[i],
-				ip6b.s6_addr[i + 1]);
+			       ip6b.s6_addr[i + 1]);
 		if (i < 14)
 			len += sprintf(ips + len, ":");
 	}

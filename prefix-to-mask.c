@@ -26,7 +26,7 @@ static void prefix_to_mask(u8 prefixlen)
 
 	/* Create a mask based on prefixlen */
 	for (i = 0; i < 16; i++) {
-		u8 s = (prefixlen > 8) ? 8 : prefixlen;
+		u8 s = prefixlen > 8 ? 8 : prefixlen;
 
 		prefixlen -= s;
 		maskb.s6_addr[i] = (0xffu << (8 - s));

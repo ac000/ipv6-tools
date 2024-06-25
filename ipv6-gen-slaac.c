@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 
 	for (i = 0; i < 8; i += 2)
 		snprintf(slaac + strlen(slaac), sizeof(slaac), "%02x%02x%s",
-				mac[i], mac[i+1], i+1 < 7 ? ":" : "");
+			 mac[i], mac[i+1], i+1 < 7 ? ":" : "");
 
 	/* Display in compressed form */
 	inet_pton(AF_INET6, slaac, slaacn);

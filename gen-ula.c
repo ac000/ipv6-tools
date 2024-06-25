@@ -37,7 +37,7 @@ int main(void)
 	uuid_unparse(uuid, uuid_s);
 	clock_gettime(CLOCK_REALTIME, &tp);
 	len = snprintf(key, sizeof(key), "%s%ld%ld", uuid_s, tp.tv_sec,
-			tp.tv_nsec);
+		       tp.tv_nsec);
 
 	td = mhash_init(MHASH_SHA1);
 	mhash(td, key, len);

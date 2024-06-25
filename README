@@ -111,5 +111,15 @@ ipv4mapped-ipv6		- Given an IPv4 address produce an IPv4-mapped IPv6
     IPv4-mapped IPv6 : ::ffff:192.168.1.254
                      : ::ffff:c0a8:01fe
 
+Build
+=====
+
+  $ make
+
+gen-ula requires libuuid-devel & mhash-devel
+
+License
+=======
+
 These tools are licensed under the GNU General Public License Version 2 or
 the GNU Lesser General Public License Version 2.1

@@ -63,21 +63,17 @@ static void print_nr_nets(u8 prefixlen)
 	 *    256 /56s, 4096 /60s and 65536 /64s
 	 */
 	if (prefixlen < 48)
-		len += snprintf(net_s, sizeof(net_s), "%llu /48s, ",
-				1LLU << (48 - prefixlen));
+		len += sprintf(net_s, "%llu /48s, ", 1LLU << (48 - prefixlen));
 	if (prefixlen < 56)
-		len += snprintf(net_s + len, sizeof(net_s) - len,
-				"%llu /56s, ",
-				1LLU << (56 - prefixlen));
+		len += sprintf(net_s + len, "%llu /56s, ",
+			       1LLU << (56 - prefixlen));
 	if (prefixlen < 60)
-		len += snprintf(net_s + len, sizeof(net_s) - len,
-				"%llu /60s, ",
-				1LLU << (60 - prefixlen));
+		len += sprintf(net_s + len,"%llu /60s, ",
+			       1LLU << (60 - prefixlen));
 	if (prefixlen == 0)
-		len += snprintf(net_s + len, sizeof(net_s) - len,
-				"18446744073709551616 /64s, ");
+		len += sprintf(net_s + len, "18446744073709551616 /64s, ");
 	else if (prefixlen < 64)
-		len += snprintf(net_s + len, sizeof(net_s) - len, "%zu /64s, ",
+		len += sprintf(net_s + len, "%zu /64s, ",
 				((u64)UINT64_MAX >> prefixlen) + 1);
 
 	net_s[len - 2] = '\0';

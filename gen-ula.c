@@ -1,7 +1,7 @@
 /*
  * gen-ula.c -	Generate an IPv6 Unique Local Address prefix
  *
- * Copyright (C) 2016		Andrew Clayton <andrew@digital-domain.net>
+ * Copyright (C) 2016 - 2024	Andrew Clayton <andrew@digital-domain.net>
  *
  * Licensed under the GNU General Public License Version 2 or
  * the GNU Lesser General Public License Version 2.1

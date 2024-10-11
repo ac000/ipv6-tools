@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>		/* UINT64_MAX */
+#include <inttypes.h>
 #include <string.h>
 #include <arpa/inet.h>
 
@@ -73,7 +74,7 @@ static void print_nr_nets(u8 prefixlen)
 	if (prefixlen == 0)
 		len += sprintf(net_s + len, "18446744073709551616 /64s, ");
 	else if (prefixlen < 64)
-		len += sprintf(net_s + len, "%zu /64s, ",
+		len += sprintf(net_s + len, "%"PRIu64" /64s, ",
 				((u64)UINT64_MAX >> prefixlen) + 1);
 
 	net_s[len - 2] = '\0';

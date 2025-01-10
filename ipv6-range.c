@@ -2,7 +2,7 @@
  * ipv6-range.c - Given an IPv6 network address with prefix, calculate the
  * 		  range of IPs available.
  *
- *  Copyright (C) 2015 - 2024	Andrew Clayton <andrew@digital-domain.net>
+ *  Copyright (C) 2015 - 2025	Andrew Clayton <andrew@digital-domain.net>
  *
  *  Licensed under the GNU General Public License Version 2 or
  *  the GNU Lesser General Public License Version 2.1

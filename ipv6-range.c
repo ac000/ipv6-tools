@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
 	u8 prefixlen;
 	char *ptr;
 
-	if (argc < 2 || !strstr(argv[1], "::/")) {
+	if (argc < 2) {
 		printf("Usage: ipv6-range network/prefix\n");
 		exit(EXIT_FAILURE);
 	}

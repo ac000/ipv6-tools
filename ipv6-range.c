@@ -2,7 +2,7 @@
  * ipv6-range.c - Given an IPv6 network address with prefix, calculate the
  * 		  range of IPs available.
  *
- *  Copyright (C) 2015 - 2025	Andrew Clayton <andrew@digital-domain.net>
+ *  Copyright (C) 2015 - 2025	Andrew Clayton <ac@sigsegv.uk>
  *
  *  Licensed under the GNU General Public License Version 2 or
  *  the GNU Lesser General Public License Version 2.1
@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
 	u8 prefixlen;
 	char *ptr;
 
-	if (argc < 2) {
+	if (argc < 2 || !strchr(argv[1], '/')) {
 		printf("Usage: ipv6-range network/prefix\n");
 		exit(EXIT_FAILURE);
 	}
